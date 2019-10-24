@@ -1,0 +1,1 @@
+TODO: Add Windows Service, Web API, WCF, Console application (batch apps using situate or task scheduler) projects to this folder

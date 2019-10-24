@@ -10,11 +10,12 @@ using Demo.Contracts;
 
 namespace Demo.API.Controllers
 {
+
     /// <summary>
-    /// This is the user controller
+    /// This is the client controller
     /// </summary>
     [Route("api/[controller]")]
-    public class UserController : BaseController
+    public class ClientController : BaseController
     {
         #region| Constructor |
 
@@ -23,7 +24,7 @@ namespace Demo.API.Controllers
         /// </summary>
         /// <param name="configuration">IConfiguration</param>
         /// <param name="unitOfWork">IUnitOfWork</param>
-        public UserController(IConfiguration configuration, IUnitOfWork unitOfWork) : base(configuration, unitOfWork)
+        public ClientController(IConfiguration configuration, IUnitOfWork unitOfWork) : base(configuration, unitOfWork)
         {
 
         }
@@ -33,9 +34,9 @@ namespace Demo.API.Controllers
         #region| Methods |
 
         /// <summary>
-        /// Get all active users
+        /// Get all active clients
         /// </summary>
-        /// <returns>Returns a user list</returns>
+        /// <returns>Returns a client list</returns>
         [HttpGet("getall")]
         [ProducesResponseType(typeof(List<UserBES>), (int)HttpStatusCode.OK)]
         public IActionResult GetAll()
@@ -44,31 +45,17 @@ namespace Demo.API.Controllers
 
             try
             {
-                var users = UnitOfWork.Usuario.Get().ToList();
+                var clients = UnitOfWork.Cliente.Get().ToList();
 
-                return Ok(users);
+                return Ok(clients);
             }
             catch (System.Exception ex)
             {
-                Logger.log.Error("An exception occurred @ UserController.GetAll", ex);
+                Logger.log.Error("An exception occurred @ ClientController.GetAll", ex);
 
                 return BadRequest(ex);
             }
             
-        }
-
-        /// <summary>
-        /// Get all users from cache
-        /// </summary>
-        private List<UserBES> GetUsersFromCache()
-        {
-            List<UserBES> output = null;
-
-            var users = UnitOfWork.Usuario.Get().ToList();
-
-            GetFromCache<List<UserBES>>("USERS", () => output = users);
-
-            return output;
         }
 
         #endregion

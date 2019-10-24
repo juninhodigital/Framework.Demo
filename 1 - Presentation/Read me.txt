@@ -1,1 +1,1 @@
-Adicionar nesta pasta projetos de interface grafica como ASP.NET Web Forms, ASP.NET MVC, Angular, React, etc
+TODO: Add ASP.NET Web Forms, ASP.NET MVC, Angular, React, Windows Forms (ClickOnce), etc to this folder

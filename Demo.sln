@@ -9,18 +9,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Pre
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", "{2F483DA9-E13C-4460-A761-126D6AE550E4}"
+	ProjectSection(SolutionItems) = preProject
+		2 - Domain\Read me.txt = 2 - Domain\Read me.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infrastructure", "3 - Infrastructure", "{52E28FBD-E9C8-4CCD-9A25-338539C2D670}"
+	ProjectSection(SolutionItems) = preProject
+		3 - Infrastructure\Read me.txt = 3 - Infrastructure\Read me.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Services", "4 - Services", "{1F21778B-0195-42A5-8547-96659DFC47F5}"
+	ProjectSection(SolutionItems) = preProject
+		4 - Services\Read me.txt = 4 - Services\Read me.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Unit Tests", "5 - Unit Tests", "{8376D58E-2AE1-4573-A77D-C9EF4ED2A846}"
+	ProjectSection(SolutionItems) = preProject
+		5 - Unit Tests\Read me.txt = 5 - Unit Tests\Read me.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - Database", "6 - Database", "{CFC18364-4B5D-4945-B125-D4A1D93AC7D2}"
+	ProjectSection(SolutionItems) = preProject
+		6 - Database\Read me.txt = 6 - Database\Read me.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7 - External Components", "7 - External Components", "{59CE01EF-5D0F-4FA3-B402-8E4931D05258}"
+	ProjectSection(SolutionItems) = preProject
+		7 - External Components\Read me.txt = 7 - External Components\Read me.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8 - Documentation", "8 - Documentation", "{3D6E7655-66E1-45D3-A509-F679F72FBB56}"
+	ProjectSection(SolutionItems) = preProject
+		8 - Documentation\Read me.txt = 8 - Documentation\Read me.txt
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.BES", "2 - Domain\Demo.BES\Demo.BES.csproj", "{5BC9AC47-FBEC-4314-900A-BBCF76DC989B}"
 EndProject

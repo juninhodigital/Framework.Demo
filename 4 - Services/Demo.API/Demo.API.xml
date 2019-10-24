@@ -66,6 +66,24 @@
             Log information about the method triggered by a HTTP event
             </summary>
         </member>
+        <member name="T:Demo.API.Controllers.ClientController">
+            <summary>
+            This is the client controller
+            </summary>
+        </member>
+        <member name="M:Demo.API.Controllers.ClientController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Demo.Contracts.IUnitOfWork)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="configuration">IConfiguration</param>
+            <param name="unitOfWork">IUnitOfWork</param>
+        </member>
+        <member name="M:Demo.API.Controllers.ClientController.GetAll">
+            <summary>
+            Get all active clients
+            </summary>
+            <returns>Returns a client list</returns>
+        </member>
         <member name="T:Demo.API.Controllers.UserController">
             <summary>
             This is the user controller
@@ -82,7 +100,7 @@
             <summary>
             Get all active users
             </summary>
-            <returns>Returns a user lista</returns>
+            <returns>Returns a user list</returns>
         </member>
         <member name="M:Demo.API.Controllers.UserController.GetUsersFromCache">
             <summary>
