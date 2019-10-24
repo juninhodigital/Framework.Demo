@@ -39,6 +39,7 @@ namespace Demo.API.Controllers
         /// <returns>Returns a client list</returns>
         [HttpGet("getall")]
         [ProducesResponseType(typeof(List<UserBES>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BadRequestResult), (int)HttpStatusCode.BadRequest)]
         public IActionResult GetAll()
         {
             Track();
