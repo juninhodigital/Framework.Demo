@@ -1,0 +1,17 @@
+﻿
+CREATE PROCEDURE SP_USER_S
+AS
+BEGIN
+ 
+	SELECT 
+		ID,
+		Name,
+		Nickname,
+		RG,
+		CPF,
+		Enabled
+	FROM TB_USER A WITH(NOLOCK)
+	ORDER BY Name
+
+
+ END

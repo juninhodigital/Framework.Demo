@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Demo.API</name>
+    </assembly>
+    <members>
+        <member name="T:Demo.API.Bootstrapper">
+            <summary>
+            Dependency injection bootstraper
+            </summary>
+        </member>
+        <member name="M:Demo.API.Bootstrapper.GetService``1">
+            <summary>
+            Get service
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Demo.API.Bootstrapper.RegisterServices">
+            <summary>
+            Register Services
+            </summary>
+            <returns>IServiceCollection</returns>
+        </member>
+        <member name="M:Demo.API.Bootstrapper.RegisterServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Register Services
+            </summary>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">IConfiguration</param>
+            <returns>IServiceCollection</returns>
+        </member>
+        <member name="T:Demo.API.BaseController">
+            <summary>
+            Abrastract class used as a base controller
+            </summary>
+        </member>
+        <member name="F:Demo.API.BaseController.Configuration">
+            <summary>
+            Represents a set of key/value application configuration properties
+            </summary>
+        </member>
+        <member name="F:Demo.API.BaseController.UnitOfWork">
+            <summary>
+            Unit of work
+            </summary>
+        </member>
+        <member name="M:Demo.API.BaseController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Demo.Contracts.IUnitOfWork)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="configuration">IConfiguration</param>
+            <param name="unitOfWork">IUnitOfWork</param>
+        </member>
+        <member name="M:Demo.API.BaseController.GetFromCache``1(System.String,System.Action)">
+            <summary>
+            Get element(s) from cache
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey"></param>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Demo.API.BaseController.Track">
+            <summary>
+            Log information about the method triggered by a HTTP event
+            </summary>
+        </member>
+        <member name="T:Demo.API.Controllers.UserController">
+            <summary>
+            This is the user controller
+            </summary>
+        </member>
+        <member name="M:Demo.API.Controllers.UserController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Demo.Contracts.IUnitOfWork)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="configuration">IConfiguration</param>
+            <param name="unitOfWork">IUnitOfWork</param>
+        </member>
+        <member name="M:Demo.API.Controllers.UserController.GetAll">
+            <summary>
+            Get all active users
+            </summary>
+            <returns>Returns a user lista</returns>
+        </member>
+        <member name="M:Demo.API.Controllers.UserController.GetUsersFromCache">
+            <summary>
+            Get all users from cache
+            </summary>
+        </member>
+        <member name="T:Demo.API.DatabaseServers">
+            <summary>
+            Represent the active Database Servers
+            </summary>
+        </member>
+        <member name="T:Demo.API.Logger">
+            <summary>
+            Log4Net class
+            </summary>
+        </member>
+        <member name="T:Demo.API.UnitOfWork">
+            <summary>
+            Unit of work class
+            </summary>
+        </member>
+        <member name="F:Demo.API.UnitOfWork.Configuration">
+            <summary>
+            Represents a set of key/value application configuration properties
+            </summary>
+        </member>
+        <member name="F:Demo.API.UnitOfWork.container">
+            <summary>
+            Container for dependency injection
+            </summary>
+        </member>
+        <member name="M:Demo.API.UnitOfWork.SetContainer(Demo.API.DatabaseServers)">
+            <summary>
+            Gets the database manager to execute T-SQL statements against it
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Demo.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Default Constructor 
+            </summary>
+            <param name="configuration">IConfiguration</param>
+        </member>
+        <member name="M:Demo.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+             This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services">IServiceCollection</param>
+        </member>
+        <member name="M:Demo.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline
+            </summary>
+            <param name="app">IApplicationBuilder</param>
+            <param name="env">IHostingEnvironment</param>
+            <param name="loggerFactory"></param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Junior\Demo\4 - Services\Demo.API\Demo.API.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Framework.Services.Data.SQL" Version="1.0.9" />
+    <PackageReference Include="Framework.Services.WebAPI.Cache" Version="1.0.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="4.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="4.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\2 - Domain\Demo.BES\Demo.BES.csproj" />
+    <ProjectReference Include="..\..\2 - Domain\Demo.Contracts\Demo.Contracts.csproj" />
+    <ProjectReference Include="..\..\3 - Infrastructure\Demo.BLL\Demo.BLL.csproj" />
+    <ProjectReference Include="..\..\3 - Infrastructure\Demo.Validation\Demo.Validation.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,82 @@
+﻿using System;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+
+using Framework.WebAPI.Cache;
+
+using Demo.Contracts;
+
+namespace Demo.API
+{
+    /// <summary>
+    /// Abrastract class used as a base controller
+    /// </summary>
+    [ApiController]
+    public abstract class BaseController : ControllerBase
+    {
+        #region| Properties |
+
+        /// <summary>
+        /// Represents a set of key/value application configuration properties
+        /// </summary>
+        protected readonly IConfiguration Configuration = null;
+
+        /// <summary>
+        /// Unit of work
+        /// </summary>
+        protected readonly UnitOfWork UnitOfWork;
+
+        #endregion
+
+        #region| Constructor |
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="configuration">IConfiguration</param>
+        /// <param name="unitOfWork">IUnitOfWork</param>
+        protected BaseController(IConfiguration configuration, IUnitOfWork unitOfWork)
+        {
+            this.Configuration = configuration;
+            this.UnitOfWork = (UnitOfWork)unitOfWork;
+        }
+
+        #endregion
+
+        #region| Methods |
+
+        /// <summary>
+        /// Get element(s) from cache
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cacheKey"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        protected T GetFromCache<T>(string cacheKey, Action action)
+        {
+            T output = default(T);
+
+            if (CacheEngine.Exists(cacheKey))
+            {
+                output = CacheEngine.Get<T>(cacheKey);
+            }
+            else
+            {
+                action();
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        /// Log information about the method triggered by a HTTP event
+        /// </summary>
+        protected void Track()
+        {
+            Logger.log.Info($"Track: {HttpContext.Request.Method} - {HttpContext.Request.Path}");
+        }
+
+        #endregion
+    }
+}
