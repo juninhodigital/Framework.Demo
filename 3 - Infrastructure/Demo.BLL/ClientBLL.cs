@@ -27,30 +27,30 @@ namespace Demo.BLL
         #region| Methods |
 
         /// <summary>
-        /// Get all Users
+        /// Get all clients
         /// </summary>
-        /// <returns>list of UserBES</returns>
-        public IEnumerable<UserBES> Get()
+        /// <returns>list of ClientBES</returns>
+        public IEnumerable<ClientBES> Get()
         {
             return DAL.Get();
         }
 
         /// <summary>
-        /// Get a User based on its identification
+        /// Get a client based on its identification
         /// </summary>
         /// <param name="ID">identification</param>
-        /// <returns>UserBES</returns>
-        public UserBES GetByID(int ID)
+        /// <returns>ClientBES</returns>
+        public ClientBES GetByID(int ID)
         {
             return DAL.GetByID(ID);
         }
 
         /// <summary>
-        /// Save a new User
+        /// Save a new client
         /// </summary>
-        /// <param name="input">UserBES</param>
+        /// <param name="input">ClientBES</param>
         /// <returns>identification</returns>
-        public int Save(UserBES input)
+        public int Save(ClientBES input)
         {
             Validate(input);
 
@@ -58,10 +58,10 @@ namespace Demo.BLL
         }
 
         /// <summary>
-        /// Update an existing User
+        /// Update an existing client
         /// </summary>
-        /// <param name="input">UserBES</param>
-        public void Update(UserBES input)
+        /// <param name="input">ClientBES</param>
+        public void Update(ClientBES input)
         {
             Validate(input, true);
 
@@ -69,10 +69,10 @@ namespace Demo.BLL
         }
 
         /// <summary>
-        /// Delete the User
+        /// Delete the client
         /// </summary>
-        /// <param name="input">UserBES</param>
-        public void Delete(UserBES input)
+        /// <param name="input">ClientBES</param>
+        public void Delete(ClientBES input)
         {
             DAL.Delete(input);
         }
@@ -84,9 +84,9 @@ namespace Demo.BLL
         /// <summary>
         /// Validate the parameters information
         /// </summary>
-        private void Validate(UserBES input, bool IsUpdate = false)
+        private void Validate(ClientBES input, bool IsUpdate = false)
         {
-            var validator = new UserValidator(IsUpdate);
+            var validator = new ClientValidator(IsUpdate);
             var result = validator.Validate(input);
 
             if(result.IsValid==false)

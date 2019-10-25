@@ -27,32 +27,32 @@ namespace Demo.DAL
         #region| Methods |
         
         /// <summary>
-        /// Get all Users
+        /// Get all clients
         /// </summary>
-        /// <returns>list of UserBES</returns>
-        public IEnumerable<UserBES> Get()
+        /// <returns>list of ClientBES</returns>
+        public IEnumerable<ClientBES> Get()
         {
             this.Run("SP_USER_S");
 
-            return this.GetList<UserBES>();
+            return this.GetList<ClientBES>();
         }
 
         /// <summary>
-        /// Get a User based on its identification
+        /// Get a client based on its identification
         /// </summary>
         /// <param name="ID">identification</param>
-        /// <returns>UserBES</returns>
-        public UserBES GetByID(int ID)
+        /// <returns>ClientBES</returns>
+        public ClientBES GetByID(int ID)
         {
             this.Run("SP_USER_S_BY_ID");
 
             this.In("P_ID", ID);
 
-            var output = new UserBES();
+            var output = new ClientBES();
 
             using(var reader = GetReader())
             {
-                output = this.Map<UserBES>(reader, true);
+                output = this.Map<ClientBES>(reader, true);
 
                 if(reader.NextResult())
                 {
@@ -63,11 +63,11 @@ namespace Demo.DAL
             return output;
         }
 
-        /// Save a new User
+        /// Save a new client
         /// </summary>
-        /// <param name="input">UserBES</param>
+        /// <param name="input">ClientBES</param>
         /// <returns>identification</returns>
-        public int Save(UserBES input)
+        public int Save(ClientBES input)
         {
             this.Run("SP_USER_I");
 
@@ -89,10 +89,10 @@ namespace Demo.DAL
         }
 
         /// <summary>
-        /// Update an existing User
+        /// Update an existing client
         /// </summary>
-        /// <param name="input">UserBES</param>
-        public void Update(UserBES input)
+        /// <param name="input">ClientBES</param>
+        public void Update(ClientBES input)
         {
             this.Run("SP_USER_U");
 
@@ -110,10 +110,10 @@ namespace Demo.DAL
         }
 
         /// <summary>
-        /// Delete the User
+        /// Delete the client
         /// </summary>
-        /// <param name="input">UserBES</param>
-        public void Delete(UserBES input)
+        /// <param name="input">ClientBES</param>
+        public void Delete(ClientBES input)
         {
             this.Run("SP_USER_D");
 
@@ -123,7 +123,7 @@ namespace Demo.DAL
         }
         
         /// <summary>
-        /// Get a datatable based on user
+        /// Get a datatable based on client
         /// </summary>
         /// <param name="input">list of AddressBES</param>
         /// <returns>DataTable</returns>

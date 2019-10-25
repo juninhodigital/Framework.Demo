@@ -2,7 +2,7 @@
 
 namespace Demo.Contracts
 {
-    public interface IClient : ICrudOperations<UserBES>
+    public interface IClient : ICrudOperations<ClientBES>
     {
 
     }
