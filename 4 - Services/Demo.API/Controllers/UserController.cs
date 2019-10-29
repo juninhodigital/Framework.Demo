@@ -60,15 +60,16 @@ namespace Demo.API.Controllers
         /// <summary>
         /// Get all users from cache
         /// </summary>
-        private List<UserBES> GetUsersFromCache()
+        private IActionResult GetUsersFromCache()
         {
             List<UserBES> output = null;
 
             var users = UnitOfWork.Usuario.Get().ToList();
 
             GetFromCache<List<UserBES>>("USERS", () => output = users);
-
-            return output;
+            
+            // Returns a 304 status code that says the content was not modified
+            return StatusCode((int)HttpStatusCode.NotModified, users);
         }
 
         #endregion
