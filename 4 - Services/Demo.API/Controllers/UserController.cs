@@ -39,21 +39,22 @@ namespace Demo.API.Controllers
         /// <returns>Returns a user list</returns>
         [HttpGet("getall")]
         [ProducesResponseType(typeof(List<UserBES>), (int)HttpStatusCode.OK)]
-        public IActionResult GetAll()
+        public ActionResult<List<UserBES>> GetAll()
         {
             Track();
 
             try
             {
-                var users = UnitOfWork.Usuario.Get().ToList();
+                var output = UnitOfWork.Usuario.Get().ToList();
 
-                return Ok(users);
+                return output;
+;
             }
             catch (System.Exception ex)
             {
                 Logger.log.Error("An exception occurred @ UserController.GetAll", ex);
 
-                return BadRequest(ex);
+                return InternalError(ex);
             }
             
         }
@@ -61,7 +62,9 @@ namespace Demo.API.Controllers
         /// <summary>
         /// Get all users from cache
         /// </summary>
-        private IActionResult GetUsersFromCache()
+        [HttpGet("GetFromCache")]
+        [ProducesResponseType(typeof(List<UserBES>), (int)HttpStatusCode.OK)]
+        private ActionResult<List<UserBES>> GetUsersFromCache()
         {
             List<UserBES> output = null;
 

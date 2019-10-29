@@ -5,6 +5,8 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
+using Framework.Core;
+
 using Demo.BES;
 using Demo.Contracts;
 
@@ -40,23 +42,80 @@ namespace Demo.API.Controllers
         [HttpGet("getall")]
         [ProducesResponseType(typeof(List<ClientBES>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(BadRequestResult), (int)HttpStatusCode.BadRequest)]
-        public IActionResult GetAll()
+        public ActionResult<List<ClientBES>> GetAll()
         {
             Track();
 
             try
             {
-                var clients = UnitOfWork.Cliente.Get().ToList();
+                var output = UnitOfWork.Cliente.Get().ToList();
 
-                return Ok(clients);
+                return output;
             }
             catch (System.Exception ex)
             {
                 Logger.log.Error("An exception occurred @ ClientController.GetAll", ex);
 
-                return BadRequest(ex);
+                return InternalError(ex);
             }
             
+        }
+
+        /// <summary>
+        /// Get a client based on the identification
+        /// </summary>
+        /// <returns>Returns a client list</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ClientBES), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BadRequestResult), (int)HttpStatusCode.BadRequest)]
+        public ActionResult<ClientBES> GetByID(int ID)
+        {
+            Track();
+
+            try
+            {
+                var output = UnitOfWork.Cliente.GetByID(ID);
+
+                if(output.IsNotNull())
+                {
+                    return output; 
+                }
+                else
+                {
+                    return NotFound();
+                }
+                
+            }
+            catch (System.Exception ex)
+            {
+                Logger.log.Error("An exception occurred @ ClientController.GetByID", ex);
+
+                return InternalError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Add a new client to the database
+        /// </summary>
+        /// <param name="input">ClientBES</param>
+        /// <returns></returns>
+        [HttpPost("save")]
+        public IActionResult Save(ClientBES input)
+        {
+            Track();
+
+            try
+            {
+                input.ID = this.UnitOfWork.Cliente.Save(input);
+
+                return Created(Url.RouteUrl(input.ID), input);
+            }
+            catch (System.Exception ex)
+            {
+                Logger.log.Error("An exception occurred @ ClientController.Save", ex);
+
+                return InternalError(ex);
+            }
         }
 
         #endregion

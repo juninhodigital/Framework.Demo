@@ -61,6 +61,20 @@
             <param name="action"></param>
             <returns></returns>
         </member>
+        <member name="M:Demo.API.BaseController.InternalError(System.String)">
+            <summary>
+            Returns an internal server error message
+            </summary>
+            <param name="message">exception message</param>
+            <returns>ObjectResult</returns>
+        </member>
+        <member name="M:Demo.API.BaseController.InternalError(System.Exception)">
+            <summary>
+            Returns an internal server error message
+            </summary>
+            <param name="exception">Exception</param>
+            <returns>ObjectResult</returns>
+        </member>
         <member name="M:Demo.API.BaseController.Track">
             <summary>
             Log information about the method triggered by a HTTP event
@@ -83,6 +97,19 @@
             Get all active clients
             </summary>
             <returns>Returns a client list</returns>
+        </member>
+        <member name="M:Demo.API.Controllers.ClientController.GetByID(System.Int32)">
+            <summary>
+            Get a client based on the identification
+            </summary>
+            <returns>Returns a client list</returns>
+        </member>
+        <member name="M:Demo.API.Controllers.ClientController.Save(Demo.BES.ClientBES)">
+            <summary>
+            Add a new client to the database
+            </summary>
+            <param name="input">ClientBES</param>
+            <returns></returns>
         </member>
         <member name="T:Demo.API.Controllers.UserController">
             <summary>

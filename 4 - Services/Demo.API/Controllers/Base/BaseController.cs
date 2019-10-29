@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Framework.WebAPI.Cache;
 
 using Demo.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace Demo.API
 {
@@ -70,13 +71,32 @@ namespace Demo.API
         }
 
         /// <summary>
+        /// Returns an internal server error message
+        /// </summary>
+        /// <param name="message">exception message</param>
+        /// <returns>ObjectResult</returns>
+        protected ObjectResult InternalError(string message)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, message);
+        }
+        /// <summary>
+        /// Returns an internal server error message
+        /// </summary>
+        /// <param name="exception">Exception</param>
+        /// <returns>ObjectResult</returns>
+        protected ObjectResult InternalError(Exception exception)
+        {
+            return InternalError(exception.Message);
+        }
+
+        /// <summary>
         /// Log information about the method triggered by a HTTP event
         /// </summary>
         protected void Track()
         {
             Logger.log.Info($"Track: {HttpContext.Request.Method} - {HttpContext.Request.Path}");
         }
-
+        
         #endregion
     }
 }
