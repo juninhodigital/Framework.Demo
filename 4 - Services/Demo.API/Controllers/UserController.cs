@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 using Demo.BES;
 using Demo.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace Demo.API.Controllers
 {
@@ -69,7 +70,7 @@ namespace Demo.API.Controllers
             GetFromCache<List<UserBES>>("USERS", () => output = users);
             
             // Returns a 304 status code that says the content was not modified
-            return StatusCode((int)HttpStatusCode.NotModified, users);
+            return StatusCode(StatusCodes.Status304NotModified, users);
         }
 
         #endregion
