@@ -1,26 +1,26 @@
 using Framework.Entity;
 
-namespace Demo.BES
+namespace Demo.Model
 {
     /// <summary>
     /// Address model domain class
     /// </summary>	
-    public sealed class AddressBES : BusinessEntityStructure
+    public class AddressCompact: BusinessEntityStructure
     {
         #region| Properties |
 
         public int ID { get; set; }
-        public string Address { get; set; }
+        public string Street { get; set; }
         public bool Enabled { get; set; }
 
         #endregion
 
         #region| Constructor |
 
-        public AddressBES()
+        public AddressCompact()
         {
             this.Map(nameof(ID));
-            this.Map(nameof(Address));
+            this.Map(nameof(Street));
             this.Map(nameof(Enabled));
         }
 

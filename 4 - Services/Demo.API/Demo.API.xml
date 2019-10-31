@@ -40,7 +40,7 @@
             Represents a set of key/value application configuration properties
             </summary>
         </member>
-        <member name="F:Demo.API.BaseController.UnitOfWork">
+        <member name="F:Demo.API.BaseController.Repository">
             <summary>
             Unit of work
             </summary>
@@ -85,6 +85,14 @@
             Log information about the method triggered by a HTTP event
             </summary>
         </member>
+        <member name="M:Demo.API.BaseController.Message(System.String,System.String)">
+            <summary>
+            Set the log error message
+            </summary>
+            <param name="message"></param>
+            <param name="memberName"></param>
+            <returns></returns>
+        </member>
         <member name="T:Demo.API.Controllers.ClientController">
             <summary>
             This is the client controller
@@ -103,17 +111,37 @@
             </summary>
             <returns>Returns a client list</returns>
         </member>
+        <member name="M:Demo.API.Controllers.ClientController.GetCompact">
+            <summary>
+            Get all active clients (compact version)
+            </summary>
+            <returns>Returns a client list</returns>
+        </member>
         <member name="M:Demo.API.Controllers.ClientController.GetByID(System.Int32)">
             <summary>
             Get a client based on the identification
             </summary>
             <returns>Returns a client list</returns>
         </member>
-        <member name="M:Demo.API.Controllers.ClientController.Post(Demo.BES.ClientBES)">
+        <member name="M:Demo.API.Controllers.ClientController.Post(Demo.Model.Client)">
             <summary>
             Add a new client to the database
             </summary>
             <param name="input">ClientBES</param>
+            <returns></returns>
+        </member>
+        <member name="M:Demo.API.Controllers.ClientController.Put(Demo.Model.Client)">
+            <summary>
+            Update an existing client 
+            </summary>
+            <param name="input">ClientBES</param>
+            <returns></returns>
+        </member>
+        <member name="M:Demo.API.Controllers.ClientController.Delete(System.Int32)">
+            <summary>
+            Delete an existing client
+            </summary>
+            <param name="ID"></param>
             <returns></returns>
         </member>
         <member name="T:Demo.API.Controllers.UserController">
@@ -143,6 +171,20 @@
             <summary>
             Represent the active Database Servers
             </summary>
+        </member>
+        <member name="T:Demo.API.Extensions">
+            <summary>
+            This class contains useful extension methods
+            </summary>
+        </member>
+        <member name="M:Demo.API.Extensions.Log(System.Exception,System.String,System.String,System.String)">
+            <summary>
+            Log a message to a file using log4net
+            </summary>
+            <param name="exception">Exception</param>
+            <param name="controllerName">Controller name</param>
+            <param name="message">additional message</param>
+            <param name="memberName">Method name</param>
         </member>
         <member name="T:Demo.API.Logger">
             <summary>

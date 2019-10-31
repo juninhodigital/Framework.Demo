@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Framework.Data;
 
-using Demo.BES;
+using Demo.Model;
 using Demo.DAL;
 using Demo.Contracts;
 using Demo.Validation;
@@ -30,9 +30,18 @@ namespace Demo.BLL
         /// Get all clients
         /// </summary>
         /// <returns>list of ClientBES</returns>
-        public IEnumerable<ClientBES> Get()
+        public IEnumerable<Client> Get()
         {
             return DAL.Get();
+        }
+
+        /// <summary>
+        /// Get all clients (compact version)
+        /// </summary>
+        /// <returns>list of ClientBES</returns>
+        public IEnumerable<ClientCompact> GetCompact()
+        {
+            return DAL.GetCompact();
         }
 
         /// <summary>
@@ -40,7 +49,7 @@ namespace Demo.BLL
         /// </summary>
         /// <param name="ID">identification</param>
         /// <returns>ClientBES</returns>
-        public ClientBES GetByID(int ID)
+        public Client GetByID(int ID)
         {
             return DAL.GetByID(ID);
         }
@@ -50,7 +59,7 @@ namespace Demo.BLL
         /// </summary>
         /// <param name="input">ClientBES</param>
         /// <returns>identification</returns>
-        public int Save(ClientBES input)
+        public int Save(Client input)
         {
             Validate(input);
 
@@ -61,7 +70,7 @@ namespace Demo.BLL
         /// Update an existing client
         /// </summary>
         /// <param name="input">ClientBES</param>
-        public void Update(ClientBES input)
+        public void Update(Client input)
         {
             Validate(input, true);
 
@@ -72,9 +81,9 @@ namespace Demo.BLL
         /// Delete the client
         /// </summary>
         /// <param name="input">ClientBES</param>
-        public void Delete(ClientBES input)
+        public int Delete(Client input)
         {
-            DAL.Delete(input);
+            return DAL.Delete(input);
         }
 
         #endregion
@@ -84,7 +93,7 @@ namespace Demo.BLL
         /// <summary>
         /// Validate the parameters information
         /// </summary>
-        private void Validate(ClientBES input, bool IsUpdate = false)
+        private void Validate(Client input, bool IsUpdate = false)
         {
             var validator = new ClientValidator(IsUpdate);
             var result = validator.Validate(input);
@@ -94,6 +103,8 @@ namespace Demo.BLL
                 throw new Exception("Please, take a look at the validation error list");
             }
         }
+
+     
 
         #endregion
     }

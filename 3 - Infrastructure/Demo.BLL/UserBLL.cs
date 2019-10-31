@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Framework.Data;
 
-using Demo.BES;
+using Demo.Model;
 using Demo.DAL;
 using Demo.Contracts;
 using Demo.Validation;
@@ -29,8 +29,8 @@ namespace Demo.BLL
         /// <summary>
         /// Get all Users
         /// </summary>
-        /// <returns>list of UserBES</returns>
-        public IEnumerable<UserBES> Get()
+        /// <returns>list of User</returns>
+        public IEnumerable<User> Get()
         {
             return DAL.Get();
         }
@@ -39,8 +39,8 @@ namespace Demo.BLL
         /// Get a User based on its identification
         /// </summary>
         /// <param name="ID">identification</param>
-        /// <returns>UserBES</returns>
-        public UserBES GetByID(int ID)
+        /// <returns>User</returns>
+        public User GetByID(int ID)
         {
             return DAL.GetByID(ID);
         }
@@ -48,9 +48,9 @@ namespace Demo.BLL
         /// <summary>
         /// Save a new User
         /// </summary>
-        /// <param name="input">UserBES</param>
+        /// <param name="input">User</param>
         /// <returns>identification</returns>
-        public int Save(UserBES input)
+        public int Save(User input)
         {
             Validate(input);
 
@@ -60,8 +60,8 @@ namespace Demo.BLL
         /// <summary>
         /// Update an existing User
         /// </summary>
-        /// <param name="input">UserBES</param>
-        public void Update(UserBES input)
+        /// <param name="input">User</param>
+        public void Update(User input)
         {
             Validate(input, true);
 
@@ -71,10 +71,10 @@ namespace Demo.BLL
         /// <summary>
         /// Delete the User
         /// </summary>
-        /// <param name="input">UserBES</param>
-        public void Delete(UserBES input)
+        /// <param name="input">User</param>
+        public int Delete(User input)
         {
-            DAL.Delete(input);
+            return DAL.Delete(input);
         }
 
         #endregion
@@ -84,7 +84,7 @@ namespace Demo.BLL
         /// <summary>
         /// Validate the parameters information
         /// </summary>
-        private void Validate(UserBES input, bool IsUpdate = false)
+        private void Validate(User input, bool IsUpdate = false)
         {
             var validator = new UserValidator(IsUpdate);
             var result = validator.Validate(input);

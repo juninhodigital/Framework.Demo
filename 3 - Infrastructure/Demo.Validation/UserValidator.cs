@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
 
-using Demo.BES;
+using Demo.Model;
 
 namespace Demo.Validation
 {
     /// <summary>
     /// This class executes abstract validation against the user
     /// </summary>
-    public class UserValidator : AbstractValidator<UserBES>
+    public class UserValidator : AbstractValidator<User>
     {
         public UserValidator(bool IsUpdate = false)
         {

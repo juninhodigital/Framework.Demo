@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 using Framework.Entity;
 
-namespace Demo.BES
+namespace Demo.Model
 {
     /// <summary>
     /// Client model domain class
     /// </summary>	
-    public sealed class ClientBES : BusinessEntityStructure
+    public sealed class Client : BusinessEntityStructure
     {
         #region| Properties |
 
@@ -18,13 +18,13 @@ namespace Demo.BES
         public string CPF { get; set; }
         public bool Enabled { get; set; }
 
-        public List<AddressBES> Addresses { get; set; } = null;
+        public List<Address> Addresses { get; set; } = null;
 
         #endregion
 
         #region| Constructor |
 
-        public ClientBES()
+        public Client()
         {
             this.Map(nameof(ID));
             this.Map(nameof(Name));

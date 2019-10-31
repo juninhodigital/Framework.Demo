@@ -1,8 +1,8 @@
-﻿using Demo.BES;
+﻿using Demo.Model;
 
 namespace Demo.Contracts
 {
-    public interface IUser : ICrudOperations<UserBES>
+    public interface IUser : ICrudOperations<User>
     {
         
     }

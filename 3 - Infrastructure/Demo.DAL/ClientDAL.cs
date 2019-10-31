@@ -5,7 +5,7 @@ using System.Linq;
 using Framework.Data;
 using Framework.Core;
 
-using Demo.BES;
+using Demo.Model;
 using Demo.Contracts;
 
 namespace Demo.DAL
@@ -30,11 +30,22 @@ namespace Demo.DAL
         /// Get all clients
         /// </summary>
         /// <returns>list of ClientBES</returns>
-        public IEnumerable<ClientBES> Get()
+        public IEnumerable<Client> Get()
         {
             this.Run("SP_USER_S");
 
-            return this.GetList<ClientBES>();
+            return this.GetList<Client>();
+        }
+
+        /// <summary>
+        /// Get all clients (compact version)
+        /// </summary>
+        /// <returns>list of ClientBES</returns>
+        public IEnumerable<ClientCompact> GetCompact()
+        {
+            this.Run("SP_USER_S");
+
+            return this.GetList<ClientCompact>();
         }
 
         /// <summary>
@@ -42,21 +53,21 @@ namespace Demo.DAL
         /// </summary>
         /// <param name="ID">identification</param>
         /// <returns>ClientBES</returns>
-        public ClientBES GetByID(int ID)
+        public Client GetByID(int ID)
         {
             this.Run("SP_USER_S_BY_ID");
 
             this.In("P_ID", ID);
 
-            var output = new ClientBES();
+            var output = new Client();
 
             using(var reader = GetReader())
             {
-                output = this.Map<ClientBES>(reader, true);
+                output = this.Map<Client>(reader, true);
 
                 if(reader.NextResult())
                 {
-                    output.Addresses = this.GetList<AddressBES>(reader).ToList();
+                    output.Addresses = this.GetList<Address>(reader).ToList();
                 }
             }
 
@@ -67,7 +78,7 @@ namespace Demo.DAL
         /// </summary>
         /// <param name="input">ClientBES</param>
         /// <returns>identification</returns>
-        public int Save(ClientBES input)
+        public int Save(Client input)
         {
             this.Run("SP_USER_I");
 
@@ -92,7 +103,7 @@ namespace Demo.DAL
         /// Update an existing client
         /// </summary>
         /// <param name="input">ClientBES</param>
-        public void Update(ClientBES input)
+        public void Update(Client input)
         {
             this.Run("SP_USER_U");
 
@@ -113,13 +124,13 @@ namespace Demo.DAL
         /// Delete the client
         /// </summary>
         /// <param name="input">ClientBES</param>
-        public void Delete(ClientBES input)
+        public int Delete(Client input)
         {
             this.Run("SP_USER_D");
 
             this.In("P_ID", input.ID);
 
-            this.Execute();
+            return this.Execute();
         }
         
         /// <summary>
@@ -127,7 +138,7 @@ namespace Demo.DAL
         /// </summary>
         /// <param name="input">list of AddressBES</param>
         /// <returns>DataTable</returns>
-        private DataTable GetTable(List<AddressBES> input, int userCode)
+        private DataTable GetTable(List<Address> input, int userCode)
         {
             var output = new DataTable("TVP_WORKSPACE_SHARE");
 
@@ -143,7 +154,7 @@ namespace Demo.DAL
                     var row = output.NewRow();
 
                     row["ID"]           = userCode == 0 ? 0 : item.ID;
-                    row["Address"]      = item.Address;
+                    row["Address"]      = item.Street;
                     row["UserCode"]     = userCode;
                     row["Enabled"]      = item.Enabled;
 

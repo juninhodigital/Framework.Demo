@@ -1,12 +1,9 @@
-﻿using Demo.BES;
+﻿using Demo.Model;
 
 namespace Demo.Contracts
 {
-    public interface IClient : ICrudOperations<ClientBES>
+    public interface IClient : ICrudOperations<Client>, IReadCompactOperation<ClientCompact>
     {
 
     }
-
-
-
 }

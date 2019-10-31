@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +27,7 @@ namespace Demo.API
         /// <summary>
         /// Unit of work
         /// </summary>
-        protected readonly UnitOfWork UnitOfWork;
+        protected readonly UnitOfWork Repository;
 
         /// <summary>
         /// Controller name
@@ -45,7 +46,7 @@ namespace Demo.API
         protected BaseController(IConfiguration configuration, IUnitOfWork unitOfWork)
         {
             this.Configuration = configuration;
-            this.UnitOfWork = (UnitOfWork)unitOfWork;
+            this.Repository = (UnitOfWork)unitOfWork;
         }
 
         #endregion
@@ -100,6 +101,17 @@ namespace Demo.API
         protected void Track()
         {
             Logger.log.Info($"Track: {HttpContext.Request.Method} - {HttpContext.Request.Path}");
+        }
+
+        /// <summary>
+        /// Set the log error message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="memberName"></param>
+        /// <returns></returns>
+        protected string Message(string message = "", [CallerMemberName] string memberName = "")
+        {
+            return $"An exception occurred @ {ControllerName}.{memberName}" + message;
         }
         
         #endregion

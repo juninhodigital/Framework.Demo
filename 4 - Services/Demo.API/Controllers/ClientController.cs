@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
@@ -7,12 +8,11 @@ using Microsoft.Extensions.Configuration;
 
 using Framework.Core;
 
-using Demo.BES;
+using Demo.Model;
 using Demo.Contracts;
 
 namespace Demo.API.Controllers
 {
-
     /// <summary>
     /// This is the client controller
     /// </summary>
@@ -40,25 +40,47 @@ namespace Demo.API.Controllers
         /// </summary>
         /// <returns>Returns a client list</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(List<ClientBES>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<Client>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(BadRequestResult), (int)HttpStatusCode.BadRequest)]
-        public ActionResult<List<ClientBES>> Get()
+        public ActionResult<List<Client>> Get()
         {
             Track();
 
             try
             {
-                var output = UnitOfWork.Cliente.Get().ToList();
+                var output = Repository.Cliente.Get().ToList();
 
                 return output;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Logger.log.Error("An exception occurred @ ClientController.GetAll", ex);
+                ex.Log(this.ControllerName);
 
                 return InternalError(ex);
             }
-            
+        }
+
+        /// <summary>
+        /// Get all active clients (compact version)
+        /// </summary>
+        /// <returns>Returns a client list</returns>
+        [HttpGet("compact")]
+        public ActionResult<List<ClientCompact>> GetCompact()
+        {
+            Track();
+
+            try
+            {
+                var output = Repository.Cliente.GetCompact().ToList();
+
+                return output;
+            }
+            catch (Exception ex)
+            {
+                ex.Log(this.ControllerName);
+
+                return InternalError(ex);
+            }
         }
 
         /// <summary>
@@ -66,15 +88,13 @@ namespace Demo.API.Controllers
         /// </summary>
         /// <returns>Returns a client list</returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ClientBES), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(BadRequestResult), (int)HttpStatusCode.BadRequest)]
-        public ActionResult<ClientBES> GetByID(int ID)
+        public ActionResult<Client> GetByID(int ID)
         {
             Track();
 
             try
             {
-                var output = UnitOfWork.Cliente.GetByID(ID);
+                var output = Repository.Cliente.GetByID(ID);
 
                 if(output.IsNotNull())
                 {
@@ -86,9 +106,9 @@ namespace Demo.API.Controllers
                 }
                 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Logger.log.Error("An exception occurred @ ClientController.GetByID", ex);
+                ex.Log(this.ControllerName);
 
                 return InternalError(ex);
             }
@@ -100,21 +120,66 @@ namespace Demo.API.Controllers
         /// <param name="input">ClientBES</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Post(ClientBES input)
+        public IActionResult Post(Client input)
         {
             Track();
 
             try
             {
-                input.ID = this.UnitOfWork.Cliente.Save(input);
+                input.ID = this.Repository.Cliente.Save(input);
 
                 var link = $"api/{ControllerName}/{input.ID}";
 
                 return Created(link, input);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Logger.log.Error("An exception occurred @ ClientController.Save", ex);
+
+                return InternalError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Update an existing client 
+        /// </summary>
+        /// <param name="input">ClientBES</param>
+        /// <returns></returns>
+        [HttpPut]
+        public ActionResult<Client> Put(Client input)
+        {
+            try
+            {
+                Repository.Cliente.Update(input);
+
+                return input;
+            }
+            catch (Exception ex)
+            {
+                ex.Log(this.ControllerName);
+
+                return InternalError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Delete an existing client
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int ID)
+        {
+            try
+            {
+                var affectedRows = Repository.Cliente.Delete(new Client { ID = ID });
+
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                ex.Log(this.ControllerName);
 
                 return InternalError(ex);
             }

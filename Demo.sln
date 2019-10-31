@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29418.71
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{E42905AB-8E49-43BB-AECA-6A367EF66A32}"
 	ProjectSection(SolutionItems) = preProject
@@ -43,7 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8 - Documentation", "8 - Do
 		8 - Documentation\Read me.txt = 8 - Documentation\Read me.txt
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.BES", "2 - Domain\Demo.BES\Demo.BES.csproj", "{5BC9AC47-FBEC-4314-900A-BBCF76DC989B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Model", "2 - Domain\Demo.BES\Demo.Model.csproj", "{5BC9AC47-FBEC-4314-900A-BBCF76DC989B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Contracts", "2 - Domain\Demo.Contracts\Demo.Contracts.csproj", "{EE531BC8-6E00-4E36-B507-1E7C537A48D0}"
 EndProject

@@ -5,7 +5,7 @@ using System.Linq;
 using Framework.Data;
 using Framework.Core;
 
-using Demo.BES;
+using Demo.Model;
 using Demo.Contracts;
 
 namespace Demo.DAL
@@ -29,34 +29,34 @@ namespace Demo.DAL
         /// <summary>
         /// Get all Users
         /// </summary>
-        /// <returns>list of UserBES</returns>
-        public IEnumerable<UserBES> Get()
+        /// <returns>list of User</returns>
+        public IEnumerable<User> Get()
         {
             this.Run("SP_USER_S");
 
-            return this.GetList<UserBES>();
+            return this.GetList<User>();
         }
 
         /// <summary>
         /// Get a User based on its identification
         /// </summary>
         /// <param name="ID">identification</param>
-        /// <returns>UserBES</returns>
-        public UserBES GetByID(int ID)
+        /// <returns>User</returns>
+        public User GetByID(int ID)
         {
             this.Run("SP_USER_S_BY_ID");
 
             this.In("P_ID", ID);
 
-            var output = new UserBES();
+            var output = new User();
 
             using(var reader = GetReader())
             {
-                output = this.Map<UserBES>(reader, true);
+                output = this.Map<User>(reader, true);
 
                 if(reader.NextResult())
                 {
-                    output.Addresses = this.GetList<AddressBES>(reader).ToList();
+                    output.Addresses = this.GetList<Address>(reader).ToList();
                 }
             }
 
@@ -65,9 +65,9 @@ namespace Demo.DAL
 
         /// Save a new User
         /// </summary>
-        /// <param name="input">UserBES</param>
+        /// <param name="input">User</param>
         /// <returns>identification</returns>
-        public int Save(UserBES input)
+        public int Save(User input)
         {
             this.Run("SP_USER_I");
 
@@ -91,8 +91,8 @@ namespace Demo.DAL
         /// <summary>
         /// Update an existing User
         /// </summary>
-        /// <param name="input">UserBES</param>
-        public void Update(UserBES input)
+        /// <param name="input">User</param>
+        public void Update(User input)
         {
             this.Run("SP_USER_U");
 
@@ -112,14 +112,14 @@ namespace Demo.DAL
         /// <summary>
         /// Delete the User
         /// </summary>
-        /// <param name="input">UserBES</param>
-        public void Delete(UserBES input)
+        /// <param name="input">User</param>
+        public int Delete(User input)
         {
             this.Run("SP_USER_D");
 
             this.In("P_ID", input.ID);
 
-            this.Execute();
+            return this.Execute();
         }
         
         /// <summary>
@@ -127,7 +127,7 @@ namespace Demo.DAL
         /// </summary>
         /// <param name="input">list of AddressBES</param>
         /// <returns>DataTable</returns>
-        private DataTable GetTable(List<AddressBES> input, int userCode)
+        private DataTable GetTable(List<Address> input, int userCode)
         {
             var output = new DataTable("TVP_WORKSPACE_SHARE");
 
@@ -143,7 +143,7 @@ namespace Demo.DAL
                     var row = output.NewRow();
 
                     row["ID"]           = userCode == 0 ? 0 : item.ID;
-                    row["Address"]      = item.Address;
+                    row["Address"]      = item.Street;
                     row["UserCode"]     = userCode;
                     row["Enabled"]      = item.Enabled;
 

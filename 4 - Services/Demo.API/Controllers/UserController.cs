@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 
-using Demo.BES;
+using Demo.Model;
 using Demo.Contracts;
 
 namespace Demo.API.Controllers
@@ -38,21 +37,20 @@ namespace Demo.API.Controllers
         /// </summary>
         /// <returns>Returns a user list</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(List<UserBES>), (int)HttpStatusCode.OK)]
-        public ActionResult<List<UserBES>> Get()
+        public ActionResult<List<User>> Get()
         {
             Track();
 
             try
             {
-                var output = UnitOfWork.Usuario.Get().ToList();
+                var output = Repository.Usuario.Get().ToList();
 
                 return output;
 ;
             }
             catch (System.Exception ex)
             {
-                Logger.log.Error("An exception occurred @ UserController.GetAll", ex);
+                ex.Log(this.ControllerName);
 
                 return InternalError(ex);
             }
@@ -63,14 +61,13 @@ namespace Demo.API.Controllers
         /// Get all users from cache
         /// </summary>
         [HttpGet("GetFromCache")]
-        [ProducesResponseType(typeof(List<UserBES>), (int)HttpStatusCode.OK)]
-        public ActionResult<List<UserBES>> GetUsersFromCache()
+        public ActionResult<List<User>> GetUsersFromCache()
         {
-            List<UserBES> output = null;
+            List<User> output = null;
 
-            var users = UnitOfWork.Usuario.Get().ToList();
+            var users = Repository.Usuario.Get().ToList();
 
-            GetFromCache<List<UserBES>>("USERS", () => output = users);
+            GetFromCache<List<User>>("USERS", () => output = users);
             
             // Returns a 304 status code that says the content was not modified
             return StatusCode(StatusCodes.Status304NotModified, users);
