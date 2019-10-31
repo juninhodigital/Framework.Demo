@@ -39,10 +39,10 @@ namespace Demo.API.Controllers
         /// Get all active clients
         /// </summary>
         /// <returns>Returns a client list</returns>
-        [HttpGet("getall")]
+        [HttpGet]
         [ProducesResponseType(typeof(List<ClientBES>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(BadRequestResult), (int)HttpStatusCode.BadRequest)]
-        public ActionResult<List<ClientBES>> GetAll()
+        public ActionResult<List<ClientBES>> Get()
         {
             Track();
 
@@ -99,8 +99,8 @@ namespace Demo.API.Controllers
         /// </summary>
         /// <param name="input">ClientBES</param>
         /// <returns></returns>
-        [HttpPost("save")]
-        public IActionResult Save(ClientBES input)
+        [HttpPost]
+        public IActionResult Post(ClientBES input)
         {
             Track();
 
@@ -108,7 +108,9 @@ namespace Demo.API.Controllers
             {
                 input.ID = this.UnitOfWork.Cliente.Save(input);
 
-                return Created(Url.RouteUrl(input.ID), input);
+                var link = $"api/{ControllerName}/{input.ID}";
+
+                return Created(link, input);
             }
             catch (System.Exception ex)
             {

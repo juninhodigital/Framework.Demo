@@ -45,6 +45,11 @@
             Unit of work
             </summary>
         </member>
+        <member name="P:Demo.API.BaseController.ControllerName">
+            <summary>
+            Controller name
+            </summary>
+        </member>
         <member name="M:Demo.API.BaseController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Demo.Contracts.IUnitOfWork)">
             <summary>
             Default constructor
@@ -92,7 +97,7 @@
             <param name="configuration">IConfiguration</param>
             <param name="unitOfWork">IUnitOfWork</param>
         </member>
-        <member name="M:Demo.API.Controllers.ClientController.GetAll">
+        <member name="M:Demo.API.Controllers.ClientController.Get">
             <summary>
             Get all active clients
             </summary>
@@ -104,7 +109,7 @@
             </summary>
             <returns>Returns a client list</returns>
         </member>
-        <member name="M:Demo.API.Controllers.ClientController.Save(Demo.BES.ClientBES)">
+        <member name="M:Demo.API.Controllers.ClientController.Post(Demo.BES.ClientBES)">
             <summary>
             Add a new client to the database
             </summary>
@@ -123,7 +128,7 @@
             <param name="configuration">IConfiguration</param>
             <param name="unitOfWork">IUnitOfWork</param>
         </member>
-        <member name="M:Demo.API.Controllers.UserController.GetAll">
+        <member name="M:Demo.API.Controllers.UserController.Get">
             <summary>
             Get all active users
             </summary>

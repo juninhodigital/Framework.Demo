@@ -28,6 +28,11 @@ namespace Demo.API
         /// </summary>
         protected readonly UnitOfWork UnitOfWork;
 
+        /// <summary>
+        /// Controller name
+        /// </summary>
+        protected string ControllerName => $"{ControllerContext.ActionDescriptor.ControllerName}";
+
         #endregion
 
         #region| Constructor |

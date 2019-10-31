@@ -4,10 +4,10 @@ using System.Net;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 
 using Demo.BES;
 using Demo.Contracts;
-using Microsoft.AspNetCore.Http;
 
 namespace Demo.API.Controllers
 {
@@ -37,9 +37,9 @@ namespace Demo.API.Controllers
         /// Get all active users
         /// </summary>
         /// <returns>Returns a user list</returns>
-        [HttpGet("getall")]
+        [HttpGet]
         [ProducesResponseType(typeof(List<UserBES>), (int)HttpStatusCode.OK)]
-        public ActionResult<List<UserBES>> GetAll()
+        public ActionResult<List<UserBES>> Get()
         {
             Track();
 
@@ -64,7 +64,7 @@ namespace Demo.API.Controllers
         /// </summary>
         [HttpGet("GetFromCache")]
         [ProducesResponseType(typeof(List<UserBES>), (int)HttpStatusCode.OK)]
-        private ActionResult<List<UserBES>> GetUsersFromCache()
+        public ActionResult<List<UserBES>> GetUsersFromCache()
         {
             List<UserBES> output = null;
 
