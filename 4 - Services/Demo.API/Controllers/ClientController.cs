@@ -219,13 +219,5 @@ namespace Demo.API.Controllers
         }
 
         #endregion
-
-        [HttpGet("teste")]
-        public IActionResult teste()
-        {
-            var valor = Configuration["ENVIRONMENT"];
-
-            return Ok(valor);
-        }
     }
 }
