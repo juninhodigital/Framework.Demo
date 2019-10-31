@@ -8,7 +8,7 @@ namespace Demo.API
     /// <summary>
     /// This class contains useful extension methods
     /// </summary>
-    internal static class Extensions
+    internal static partial class Extensions
     {
         #region| Methods |
 
@@ -29,7 +29,7 @@ namespace Demo.API
             }
 
             Logger.log.Error(errorMessage, exception);
-        } 
+        }
 
         #endregion
     }

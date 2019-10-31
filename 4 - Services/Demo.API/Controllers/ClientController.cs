@@ -125,6 +125,13 @@ namespace Demo.API.Controllers
         {
             Track();
 
+            var validationResult = Validate(input);
+
+            if (validationResult.IsNotNull())
+            {
+                return BadRequest(validationResult);
+            }
+
             try
             {
                 input.ID = this.Repository.Cliente.Save(input);
@@ -132,10 +139,11 @@ namespace Demo.API.Controllers
                 var link = $"api/{ControllerName}/{input.ID}";
 
                 return Created(link, input);
+
             }
             catch (Exception ex)
             {
-                Logger.log.Error("An exception occurred @ ClientController.Save", ex);
+                ex.Log(this.ControllerName);
 
                 return InternalError(ex);
             }
@@ -149,6 +157,15 @@ namespace Demo.API.Controllers
         [HttpPut]
         public ActionResult<Client> Put(Client input)
         {
+            Track();
+
+            var validationResult = Validate(input);
+
+            if (validationResult.IsNotNull())
+            {
+                return BadRequest(validationResult);
+            }
+
             try
             {
                 Repository.Cliente.Update(input);
@@ -188,25 +205,27 @@ namespace Demo.API.Controllers
 
         #endregion
 
-
         #region| Validation |
 
         /// <summary>
         /// Validate the parameters information
         /// </summary>
-        private void Validate(Client input, bool IsUpdate = false)
+        private string Validate(Client input, bool IsUpdate = false)
         {
-            var validator = new ClientValidator(IsUpdate);
-            var result = validator.Validate(input);
+            var modelValidator   = new ClientValidator(IsUpdate);
+            var validationResult = modelValidator.Validate(input);
 
-            if (result.IsValid == false)
-            {
-                throw new Exception("Please, take a look at the validation error list");
-            }
+            return validationResult.GetMessage();
         }
 
-
-
         #endregion
+
+        [HttpGet("teste")]
+        public IActionResult teste()
+        {
+            var valor = Configuration["ENVIRONMENT"];
+
+            return Ok(valor);
+        }
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 
+using Framework.Core;
+
 using Demo.Model;
 using Demo.Contracts;
 using Demo.Validation;
@@ -68,7 +70,12 @@ namespace Demo.API.Controllers
         {
             Track();
 
-            Validate(input);
+            var validationResult = Validate(input);
+
+            if(validationResult.IsNotNull())
+            {
+                return BadRequest(validationResult);
+            }
 
             try
             {
@@ -77,6 +84,7 @@ namespace Demo.API.Controllers
                 var link = $"api/{ControllerName}/{input.ID}";
 
                 return Created(link, input);
+
             }
             catch (System.Exception ex)
             {
@@ -105,22 +113,18 @@ namespace Demo.API.Controllers
         }
 
         #endregion
-
-
+        
         #region| Validation |
 
         /// <summary>
         /// Validate the parameters information
         /// </summary>
-        private void Validate(User input, bool IsUpdate = false)
+        private string Validate(User input, bool IsUpdate = false)
         {
-            var validator = new UserFullValidator(IsUpdate);
-            var validationResults = validator.Validate(input);
+            var modelValidator = new UserFullValidator(IsUpdate);
+            var validationResult = modelValidator.Validate(input);
 
-            if (validationResults.IsValid == false)
-            {
-                //return new BadRequest("Please, take a look at the validation error list");
-            }
+            return validationResult.GetMessage();
         }
 
         #endregion

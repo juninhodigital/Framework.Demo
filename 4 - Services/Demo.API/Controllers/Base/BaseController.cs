@@ -34,6 +34,11 @@ namespace Demo.API
         /// </summary>
         protected string ControllerName => $"{ControllerContext.ActionDescriptor.ControllerName}";
 
+        /// <summary>
+        /// New line
+        /// </summary>
+        protected string BR => Environment.NewLine;
+
         #endregion
 
         #region| Constructor |
