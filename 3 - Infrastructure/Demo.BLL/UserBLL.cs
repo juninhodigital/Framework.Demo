@@ -6,7 +6,6 @@ using Framework.Data;
 using Demo.Model;
 using Demo.DAL;
 using Demo.Contracts;
-using Demo.Validation;
 
 namespace Demo.BLL
 {
@@ -52,8 +51,6 @@ namespace Demo.BLL
         /// <returns>identification</returns>
         public int Save(User input)
         {
-            Validate(input);
-
             return DAL.Save(input);
         }
 
@@ -63,8 +60,6 @@ namespace Demo.BLL
         /// <param name="input">User</param>
         public void Update(User input)
         {
-            Validate(input, true);
-
             DAL.Update(input);
         }
 
@@ -75,24 +70,6 @@ namespace Demo.BLL
         public int Delete(User input)
         {
             return DAL.Delete(input);
-        }
-
-        #endregion
-
-        #region| Validation |
-
-        /// <summary>
-        /// Validate the parameters information
-        /// </summary>
-        private void Validate(User input, bool IsUpdate = false)
-        {
-            var validator = new UserValidator(IsUpdate);
-            var result = validator.Validate(input);
-
-            if(result.IsValid==false)
-            {
-                throw new Exception("Please, take a look at the validation error list");
-            }
         }
 
         #endregion

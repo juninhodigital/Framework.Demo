@@ -5,14 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="8.5.0" />
     <PackageReference Include="Framework.Services.Data" Version="1.0.16" />
     <PackageReference Include="Framework.Services.Entity" Version="1.0.8" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Demo.DAL\Demo.DAL.csproj" />
-    <ProjectReference Include="..\Demo.Validation\Demo.Validation.csproj" />
   </ItemGroup>
 
 </Project>

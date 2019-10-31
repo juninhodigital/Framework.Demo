@@ -16,6 +16,7 @@ namespace Demo.Model
         public string Nickname { get; set; }
         public string RG { get; set; }
         public string CPF { get; set; }
+        public int Age { get; set; }
         public bool Enabled { get; set; }
 
         public List<Address> Addresses { get; set; } = null;

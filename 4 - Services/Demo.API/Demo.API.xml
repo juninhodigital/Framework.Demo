@@ -128,7 +128,7 @@
             Add a new client to the database
             </summary>
             <param name="input">ClientBES</param>
-            <returns></returns>
+            <returns>Client</returns>
         </member>
         <member name="M:Demo.API.Controllers.ClientController.Put(Demo.Model.Client)">
             <summary>
@@ -143,6 +143,11 @@
             </summary>
             <param name="ID"></param>
             <returns></returns>
+        </member>
+        <member name="M:Demo.API.Controllers.ClientController.Validate(Demo.Model.Client,System.Boolean)">
+            <summary>
+            Validate the parameters information
+            </summary>
         </member>
         <member name="T:Demo.API.Controllers.UserController">
             <summary>
@@ -162,9 +167,21 @@
             </summary>
             <returns>Returns a user list</returns>
         </member>
+        <member name="M:Demo.API.Controllers.UserController.Post(Demo.Model.User)">
+            <summary>
+            Add a new user to the database
+            </summary>
+            <param name="input">User</param>
+            <returns>User</returns>
+        </member>
         <member name="M:Demo.API.Controllers.UserController.GetUsersFromCache">
             <summary>
             Get all users from cache
+            </summary>
+        </member>
+        <member name="M:Demo.API.Controllers.UserController.Validate(Demo.Model.User,System.Boolean)">
+            <summary>
+            Validate the parameters information
             </summary>
         </member>
         <member name="T:Demo.API.DatabaseServers">

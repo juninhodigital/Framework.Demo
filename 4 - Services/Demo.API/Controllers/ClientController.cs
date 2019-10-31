@@ -10,6 +10,7 @@ using Framework.Core;
 
 using Demo.Model;
 using Demo.Contracts;
+using Demo.Validation;
 
 namespace Demo.API.Controllers
 {
@@ -118,7 +119,7 @@ namespace Demo.API.Controllers
         /// Add a new client to the database
         /// </summary>
         /// <param name="input">ClientBES</param>
-        /// <returns></returns>
+        /// <returns>Client</returns>
         [HttpPost]
         public IActionResult Post(Client input)
         {
@@ -184,6 +185,27 @@ namespace Demo.API.Controllers
                 return InternalError(ex);
             }
         }
+
+        #endregion
+
+
+        #region| Validation |
+
+        /// <summary>
+        /// Validate the parameters information
+        /// </summary>
+        private void Validate(Client input, bool IsUpdate = false)
+        {
+            var validator = new ClientValidator(IsUpdate);
+            var result = validator.Validate(input);
+
+            if (result.IsValid == false)
+            {
+                throw new Exception("Please, take a look at the validation error list");
+            }
+        }
+
+
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 using Demo.Model;
 using Demo.Contracts;
+using Demo.Validation;
 
 namespace Demo.API.Controllers
 {
@@ -53,8 +55,35 @@ namespace Demo.API.Controllers
                 ex.Log(this.ControllerName);
 
                 return InternalError(ex);
+            }            
+        }
+
+        /// <summary>
+        /// Add a new user to the database
+        /// </summary>
+        /// <param name="input">User</param>
+        /// <returns>User</returns>
+        [HttpPost]
+        public ActionResult<User> Post(User input)
+        {
+            Track();
+
+            Validate(input);
+
+            try
+            {
+                input.ID = this.Repository.Usuario.Save(input);
+
+                var link = $"api/{ControllerName}/{input.ID}";
+
+                return Created(link, input);
             }
-            
+            catch (System.Exception ex)
+            {
+                ex.Log(this.ControllerName);
+
+                return InternalError(ex);
+            }
         }
 
         /// <summary>
@@ -63,6 +92,8 @@ namespace Demo.API.Controllers
         [HttpGet("GetFromCache")]
         public ActionResult<List<User>> GetUsersFromCache()
         {
+            Track();
+
             List<User> output = null;
 
             var users = Repository.Usuario.Get().ToList();
@@ -71,6 +102,25 @@ namespace Demo.API.Controllers
             
             // Returns a 304 status code that says the content was not modified
             return StatusCode(StatusCodes.Status304NotModified, users);
+        }
+
+        #endregion
+
+
+        #region| Validation |
+
+        /// <summary>
+        /// Validate the parameters information
+        /// </summary>
+        private void Validate(User input, bool IsUpdate = false)
+        {
+            var validator = new UserFullValidator(IsUpdate);
+            var validationResults = validator.Validate(input);
+
+            if (validationResults.IsValid == false)
+            {
+                //return new BadRequest("Please, take a look at the validation error list");
+            }
         }
 
         #endregion
