@@ -18,7 +18,8 @@ namespace Demo.API.Controllers
     /// This is the client controller
     /// </summary>
     [Route("api/[controller]")]
-    public class ClientController : BaseController
+    //[ApiVersion("1.0"), ApiVersion("1.1")]
+    public partial class ClientController : BaseController
     {
         #region| Constructor |
 
@@ -50,7 +51,7 @@ namespace Demo.API.Controllers
             try
             {
                 var output = Repository.Cliente.Get().ToList();
-
+                
                 return output;
             }
             catch (Exception ex)

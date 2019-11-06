@@ -1,18 +1,25 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 
+using Framework.Core;
+
 namespace Demo.API
 {
+    /// <summary>
+    /// Startup class
+    /// </summary>
     public class Startup
     {
         #region| Properties |
@@ -34,6 +41,8 @@ namespace Demo.API
 
         #endregion
 
+        #region| Methods |
+
         /// <summary>
         ///  This method gets called by the runtime. Use this method to add services to the container.
         /// </summary>
@@ -46,6 +55,33 @@ namespace Demo.API
             // Initialize the log4Net
             Logger.SetLog4NetConfiguration();
 
+            if (Configuration["USE.API.VERSION"].ToBool())
+            {
+                // Add the API Versioning
+                services.AddApiVersioning(opt =>
+                {
+                    opt.AssumeDefaultVersionWhenUnspecified = true;
+                    opt.DefaultApiVersion = new ApiVersion(1, 0);
+                    opt.ReportApiVersions = true;
+                    opt.ApiVersionReader  = ApiVersionReader.Combine
+                    (
+                        new QueryStringApiVersionReader("ver", "version"),
+                        new HeaderApiVersionReader("X-Version")
+                    );
+
+                #region| Url Versioning |
+
+                // Uncomment the code below in case you need to use the API version in the Url (Example: www.yourapi.com/v1/clients)
+                // opt.ApiVersionReader  = new UrlSegmentApiVersionReader(); 
+
+                // Thereafter, change every existing controllers by adding the code below
+                // [Route("api/v{version:ApiVersion}/[controller]")]
+
+                #endregion
+
+            });
+
+            }
             // Add gzip-deflate compression
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
             services.AddResponseCompression(options =>
@@ -59,10 +95,12 @@ namespace Demo.API
                 c.SwaggerDoc("v1", new Info
                 {
                     Title = "API Demo application",
-                    Version = "2.0",
+                    Version = "1.0",
                     Description = "This is a ASP.NET Core API demo application",
 
                 });
+
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -73,7 +111,8 @@ namespace Demo.API
 
             services.AddMvcCore().AddApiExplorer();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(opt => opt.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         /// <summary>
@@ -98,7 +137,7 @@ namespace Demo.API
 
             // Configure gzip/deflate compression in the api layer
             app.UseResponseCompression();
-           
+
             app.UseMvc();
 
             app.UseSwagger();
@@ -107,6 +146,8 @@ namespace Demo.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Demo API");
 
             });
-        }
+        } 
+        
+        #endregion
     }
 }
