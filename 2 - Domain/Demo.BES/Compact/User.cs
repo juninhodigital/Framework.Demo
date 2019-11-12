@@ -5,7 +5,7 @@ namespace Demo.Model
     /// <summary>
     /// User model domain class
     /// </summary>	
-    public sealed class UserBES : BusinessEntityStructure
+    public sealed class UserCompact : BusinessEntityStructure
     {
         #region| Properties |
 
@@ -16,7 +16,7 @@ namespace Demo.Model
 
         #region| Constructor |
 
-        public UserBES()
+        public UserCompact()
         {
             this.Map(nameof(ID));
             this.Map(nameof(Name));
